@@ -1,15 +1,18 @@
 package com.example.mvvmstate.viewmodel
 
+import android.app.Application
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.core.os.postDelayed
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mvvmstate.model.City
 import com.example.mvvmstate.model.CityDataProvider
 
-class CityViewModel : ViewModel() {
+class CityViewModel(application: Application) : AndroidViewModel(application) {
 
     private val cityData = MutableLiveData<City>()
     private val cities = CityDataProvider().getCities()
@@ -18,6 +21,8 @@ class CityViewModel : ViewModel() {
 
     init {
         loop()
+        Log.d("Log", application.toString())
+        Log.d("Log", application.filesDir.toString())
     }
 
     fun getCityData() : LiveData<City> = cityData
